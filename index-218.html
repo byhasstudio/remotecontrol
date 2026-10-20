@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unduh RemoteCtl Agent untuk Windows</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#fff; --text:#16202e; --muted:#5b6778;
+    --primary:#2563eb; --primary-d:#1d4ed8; --border:#e2e8f0; --chip:#eef2ff;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#0e131b; --card:#161d28; --text:#e8edf5; --muted:#93a0b4; --border:#243044; --chip:#1c2740;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px;background:var(--bg);color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+  .card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--border);
+    border-radius:20px;padding:32px 28px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+  .icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#2563eb,#7c3aed);
+    display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .icon svg{width:34px;height:34px;fill:#fff}
+  h1{margin:0 0 6px;font-size:1.6rem}
+  p.sub{margin:0 0 22px;color:var(--muted)}
+  .meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+  .meta div{background:var(--chip);border-radius:12px;padding:10px 12px}
+  .meta small{display:block;color:var(--muted);font-size:.75rem}
+  .meta b{font-size:.95rem}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    padding:15px;border-radius:12px;background:var(--primary);color:#fff;
+    font-size:1.05rem;font-weight:600;text-decoration:none;transition:.15s}
+  .btn:hover{background:var(--primary-d);transform:translateY(-1px)}
+  .btn svg{width:20px;height:20px;fill:#fff}
+  .hash{margin-top:22px;font-size:.8rem;color:var(--muted)}
+  .hash code{display:block;margin-top:6px;padding:10px;border-radius:10px;background:var(--chip);
+    word-break:break-all;font-family:ui-monospace,Consolas,monospace;font-size:.75rem;color:var(--text)}
+  .hash button{margin-top:8px;border:1px solid var(--border);background:transparent;color:var(--text);
+    padding:6px 12px;border-radius:8px;cursor:pointer;font-size:.8rem}
+  h2{font-size:1rem;margin:26px 0 8px}
+  ol{margin:0;padding-left:20px;color:var(--muted);font-size:.92rem}
+  ol li{margin-bottom:4px}
+  .note{margin-top:20px;padding:12px 14px;border-radius:12px;font-size:.85rem;
+    background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35)}
+  footer{margin-top:22px;text-align:center;font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M3 5.5 11 4.4v7.1H3V5.5Zm9 -1.2L21 3v8.5h-9V4.3ZM3 12.5h8v7.1l-8-1.1v-6Zm9 0h9V21l-9-1.3v-7.2Z"/></svg>
+  </div>
+
+  <h1>RemoteCtl Agent</h1>
+  <p class="sub">Aplikasi agen untuk Windows. Unduh, ekstrak, lalu jalankan.</p>
+
+  <div class="meta">
+    <div><small>Platform</small><b>Windows 10 / 11 (64-bit)</b></div>
+    <div><small>Format</small><b>ZIP (berisi .exe)</b></div>
+    <div><small>Ukuran unduhan</small><b>±64,3 MB</b></div>
+    <div><small>Setelah diekstrak</small><b>±154,3 MB</b></div>
+  </div>
+
+  <a class="btn" id="dl" href="remote-ctl-windows-exe.zip" download>
+    <svg viewBox="0 0 24 24"><path d="M12 3v10.2l3.6-3.6L17 11l-5 5-5-5 1.4-1.4L11 13.2V3h1ZM5 18h14v2H5v-2Z"/></svg>
+    Unduh untuk Windows
+  </a>
+
+  <div class="hash">
+    Checksum SHA-256 (untuk verifikasi file):
+    <code id="sha">5583ab7fefae2f22538843edf46e2243b35d6d6c77169f94a5c23a604d9ed21e</code>
+    <button id="copy" type="button">Salin</button>
+  </div>
+
+  <h2>Cara memasang</h2>
+  <ol>
+    <li>Klik tombol unduh di atas.</li>
+    <li>Klik kanan file ZIP, pilih <b>Extract All</b>.</li>
+    <li>Jalankan <b>RemoteCtlAgent.exe</b>.</li>
+  </ol>
+
+  <div class="note">
+    Jika Windows SmartScreen muncul, klik <b>More info</b> lalu <b>Run anyway</b>.
+    Pastikan checksum file cocok sebelum menjalankan.
+  </div>
+
+  <footer>&copy; <span id="yr"></span> RemoteCtl. Hak cipta dilindungi.</footer>
+</main>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('copy').addEventListener('click', function () {
+    var t = document.getElementById('sha').textContent;
+    var b = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+      .then(function(){ b.textContent = 'Tersalin ✓'; })
+      .catch(function(){ b.textContent = 'Gagal menyalin'; });
+    setTimeout(function(){ b.textContent = 'Salin'; }, 1800);
+  });
+</script>
+</body>
+</html>
